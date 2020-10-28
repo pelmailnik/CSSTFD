@@ -5,22 +5,96 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STFD"
         mc:Ignorable="d"
-        Title="STFD" Height="125" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" Icon="resourses/iconApp.png">
+        Title="STFD" Height="125" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" Icon="resourses/iconApp.png" WindowStyle="None">
     <Grid x:Name="mainGrid" Background="#00000000" MouseDown="Grid_MouseDown">
-        <TextBox x:Name="boxHours" HorizontalAlignment="Left" Height="18" Margin="43,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
-        <TextBox x:Name="boxMinutes" HorizontalAlignment="Left" Height="18" Margin="134,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Cursor="AppStarting"/>
-        <TextBox x:Name="boxSeconds" HorizontalAlignment="Left" Height="18" Margin="223,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-        <TextBlock x:Name="boxDebug" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10,70,0,0" Foreground="Black"/>
-        <Button x:Name="btnAbort" Content="Отменить" HorizontalAlignment="Left" Margin="208,49,0,0" VerticalAlignment="Top" Width="63" Click="btnAbort_Click" Height="21"/>
-        <Button x:Name="btnPlan" Content="Запланировать" HorizontalAlignment="Left" Margin="97,49,0,0" VerticalAlignment="Top" Width="98" Click="ToPlan" Height="21" IsDefault="True"/>
-        <Label Content="Мин" HorizontalAlignment="Left" Margin="99,10,0,0" VerticalAlignment="Top" Height="23"/>
-        <Label Content="Час" HorizontalAlignment="Left" Margin="13,10,0,0" VerticalAlignment="Top" Height="23"/>
-        <Label Content="Сек" HorizontalAlignment="Left" Margin="193,10,0,0" VerticalAlignment="Top" Height="23"/>
-        <Button x:Name="upHour" HorizontalAlignment="Left" Margin="82,15,0,0" VerticalAlignment="Top" Width="9" Height="9" FontSize="6" BorderThickness="1" Padding="0,-2,0,0" BorderBrush="#FFABADB3" Click="ToUpHours"/>
-        <Button x:Name="downHour" HorizontalAlignment="Left" Margin="82,24,0,0" VerticalAlignment="Top" Width="9" Height="9" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToDownHours"/>
-        <Button x:Name="upMin" HorizontalAlignment="Left" Margin="173,15,0,0" VerticalAlignment="Top" Width="9" Height="9" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToUpMin"/>
-        <Button x:Name="downMin" HorizontalAlignment="Left" Margin="173,24,0,0" VerticalAlignment="Top" Width="9" Height="9" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToDownMin"/>
-        <Button x:Name="upSec" HorizontalAlignment="Left" Margin="262,15,0,0" VerticalAlignment="Top" Width="9" Height="9" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToUpSec"/>
-        <Button x:Name="downSec" HorizontalAlignment="Left" Margin="262,24,0,0" VerticalAlignment="Top" Width="9" Height="9" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" RenderTransformOrigin="0.528,0.528" BorderBrush="#FFABADB3" Click="ToDownSec"/>
+        <TextBox x:Name="boxHours" HorizontalAlignment="Left" Height="19" Margin="46,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
+        <TextBox x:Name="boxMinutes" HorizontalAlignment="Left" Height="19" Margin="137,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Cursor="AppStarting"/>
+        <TextBox x:Name="boxSeconds" HorizontalAlignment="Left" Height="19" Margin="226,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+        <TextBlock x:Name="boxDebug" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="13,96,0,0" Foreground="Black"/>
+        <Button x:Name="btnAbort" Content="Отменить" HorizontalAlignment="Left" Margin="212,75,0,0" VerticalAlignment="Top" Width="63" Click="btnAbort_Click" Height="22" BorderBrush="#FFACACAC" Background="#FFEDEDED"/>
+        <Button x:Name="btnPlan" Content="Запланировать" HorizontalAlignment="Left" Margin="107,75,0,0" VerticalAlignment="Top" Width="98" Click="btnPlan_Click" Height="22" IsDefault="True" BorderBrush="#FFACACAC" Background="#FFEDEDED"/>
+        <Label Content="Мин" HorizontalAlignment="Left" Margin="107,40,0,0" VerticalAlignment="Top" Height="19" Width="30" Padding="0,1,0,0"/>
+        <Label Content="Час" HorizontalAlignment="Left" Margin="18,40,0,0" VerticalAlignment="Top" Height="19" Width="28" Padding="4,1,0,0"/>
+        <Label Content="Сек" HorizontalAlignment="Left" Margin="198,40,0,0" VerticalAlignment="Top" Height="19" Width="28" Padding="3,1,0,0"/>
+        <Button x:Name="upHour" HorizontalAlignment="Left" Margin="85,40,0,0" VerticalAlignment="Top" Width="10" Height="10" FontSize="6" BorderThickness="1" Padding="0,-2,0,0" BorderBrush="#FFABADB3" Click="ToUpHours">
+            <Button.Background>
+                <ImageBrush ImageSource="resourses/arrow.png">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="180" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="downHour" HorizontalAlignment="Left" Margin="85,49,0,0" VerticalAlignment="Top" Width="10" Height="10" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToDownHours">
+            <Button.Background>
+                <ImageBrush ImageSource="resourses/arrow.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="upMin" HorizontalAlignment="Left" Margin="176,40,0,0" VerticalAlignment="Top" Width="10" Height="10" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToUpMin">
+            <Button.Background>
+                <ImageBrush ImageSource="resourses/arrow.png">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="180" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="downMin" HorizontalAlignment="Left" Margin="176,49,0,0" VerticalAlignment="Top" Width="10" Height="10" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToDownMin">
+            <Button.Background>
+                <ImageBrush ImageSource="resourses/arrow.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="upSec" HorizontalAlignment="Left" Margin="265,40,0,0" VerticalAlignment="Top" Width="10" Height="10" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" BorderBrush="#FFABADB3" Click="ToUpSec">
+            <Button.Background>
+                <ImageBrush ImageSource="resourses/arrow.png">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="180" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="downSec" HorizontalAlignment="Left" Margin="265,49,0,0" VerticalAlignment="Top" Width="10" Height="10" FontSize="6" BorderThickness="1" Padding="0,-3,0,0" RenderTransformOrigin="0.528,0.528" BorderBrush="#FFABADB3" Click="ToDownSec">
+            <Button.Background>
+                <ImageBrush ImageSource="resourses/arrow.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btn_Minimized" Content="" HorizontalAlignment="Left" Margin="226,0,0,0" VerticalAlignment="Top" Width="36" Height="24" Click="btn_Minimized_Click"/>
+        <ComboBox x:Name="cmbBox" HorizontalAlignment="Left" Margin="18,75,0,0" VerticalAlignment="Top" Width="60" SelectedIndex="0">
+            <ComboBoxItem Content="Выкл."/>
+            <ComboBoxItem Content="Сон"/>
+        </ComboBox>
+        <Label x:Name="lblTitleStatus" Content="" HorizontalAlignment="Left" Margin="34,0,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="indctrImage" HorizontalAlignment="Left" Height="24" Margin="7,2,0,0" VerticalAlignment="Top" Width="24"/>
+        <Button x:Name="btnClose" Content="" HorizontalAlignment="Left" Margin="264,0,0,0" VerticalAlignment="Top" Width="36" Height="24" Click="btnClose_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

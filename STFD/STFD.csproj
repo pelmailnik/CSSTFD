@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ShedulerTask.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -107,7 +108,11 @@
     <Resource Include="resourses\icoClose.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="iconApp.png" />
+    <Resource Include="resourses\arrow.png" />
+    <Resource Include="resourses\indicator.png" />
+    <Resource Include="resourses\indicatorOff.png" />
+    <Resource Include="resourses\indicatorShut.png" />
+    <Resource Include="resourses\indicatorSleep.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

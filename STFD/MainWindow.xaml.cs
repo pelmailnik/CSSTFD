@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32.TaskScheduler;
 
 namespace STFD
 {
@@ -21,12 +20,13 @@ namespace STFD
     /// </summary>
     public partial class MainWindow : Window
     {
-        TaskDefinition td = TaskService.Instance.NewTask();
+        private readonly ShedulerTask _task = new ShedulerTask();
 
         public MainWindow()
         {
             InitializeComponent();
             FocusManager.SetFocusedElement(mainGrid, boxMinutes);
+            Indicate();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -34,48 +34,19 @@ namespace STFD
             this.Close();
         }
 
-        private DateTime GetTime()
+        private void btn_Minimized_Click(object sender, RoutedEventArgs e)
         {
-            DateTime date = DateTime.Now;
-
-            date = date.AddHours(GetValueFromBox(boxHours));
-            date = date.AddMinutes(GetValueFromBox(boxMinutes));
-            date = date.AddSeconds(GetValueFromBox(boxSeconds));
-
-            //boxDebug.Text = String.Format("{0:o}", date);
-
-            return date;
+            this.WindowState = WindowState.Minimized;
         }
 
-        private double GetValueFromBox(TextBox box)
-        {
-            if (box.GetLineText(0) == "") return 0.0;
-            else return Convert.ToDouble(box.GetLineText(0));
-        }
-
-        private void ToPlan(object sender, RoutedEventArgs e)
+        private void btnPlan_Click(object sender, RoutedEventArgs e)
         {
             
+            _task.SetTime(boxHours.Text, boxMinutes.Text, boxSeconds.Text);
+            _task.ToPlan(cmbBox.SelectedIndex);
+            Indicate();
 
-            // Create a new task definition and assign properties
-            //TaskDefinition td = TaskService.Instance.NewTask();
-            td.RegistrationInfo.Description = "Does something";
-            td.Principal.LogonType = TaskLogonType.InteractiveToken;
-
-            // Add a trigger that will fire one time
-            td.Triggers.Add(new TimeTrigger
-            {
-                StartBoundary = GetTime()
-            });
-
-            // Add an action that will launch Notepad whenever the trigger fires
-            td.Actions.Add(new ExecAction("c:\\windows\\system32\\shutdown.exe", "-s", "c:\\windows\\system32"));
-
-            // Register the task in the root folder
-            const string taskName = "STFD";
-            TaskService.Instance.RootFolder.RegisterTaskDefinition(taskName, td);
-
-            boxDebug.Text = "Я выключусь";
+            boxDebug.Text = Convert.ToString(_task.IsTaskExist());
 
         }
 
@@ -89,22 +60,79 @@ namespace STFD
 
         private void btnAbort_Click(object sender, RoutedEventArgs e)
         {
-            TaskService.Instance.RootFolder.DeleteTask("STFD");
-            boxDebug.Text = "Отменено";
+            _task.DeleteTask();
+            Indicate();
+            boxDebug.Text = Convert.ToString(_task.IsTaskExist());
         }
+
+        private void Indicate()
+        {
+            if (_task.IsTaskExist())
+            {
+                if (_task.GetTaskTime() < DateTime.Now)
+                {
+                    ChangeImgIndicator();
+                    lblTitleStatus.Content = "STFD";
+                }
+                else
+                {
+                    ChangeImgIndicator(cmbBox.SelectedIndex);
+                    if (_task.GetTaskTime().Day == DateTime.Now.Day)
+                    {
+                        lblTitleStatus.Content = $"Сегодня в {_task.GetTaskTime():t}";
+                    }
+                    else if (_task.GetTaskTime().Day == DateTime.Now.Day + 1)
+                    {
+                        lblTitleStatus.Content = $"Завтра в {_task.GetTaskTime():t}";
+                    }
+                    else
+                    {
+                        lblTitleStatus.Content = $"{_task.GetTaskTime():M}, {_task.GetTaskTime():t}";
+                    }
+                }
+            }
+            else
+            {
+                ChangeImgIndicator();
+                lblTitleStatus.Content = "STFD";
+            }
+        }
+
+
+        private void ChangeImgIndicator()
+        {
+            indctrImage.Source = new BitmapImage(new Uri("pack://application:,,,/resourses/indicatorOff.png"));
+        }
+
+        private void ChangeImgIndicator(int indexCmbBox)
+        {
+            switch (indexCmbBox)
+            {
+                case 0: 
+                    indctrImage.Source = new BitmapImage(new Uri("pack://application:,,,/resourses/indicatorShut.png"));
+                    break;
+                case 1:
+                    indctrImage.Source = new BitmapImage(new Uri("pack://application:,,,/resourses/indicatorSleep.png"));
+                    break;
+            }
+        }
+
+        private static double ConvertValue(TextBox box)
+        {
+            return box.Text == "" ? 0.0 : Convert.ToDouble(box.Text);
+        }
+
 
         private void ToUp(TextBox box)
         {
-            int x = Convert.ToInt32(GetValueFromBox(box));
-            if (x == 0) box.Text = "1";
-            else box.Text = Convert.ToString(++x);
+            var x = Convert.ToInt32(ConvertValue(box));
+            box.Text = x == 0 ? "1" : Convert.ToString(++x);
         }
 
         private void ToDown(TextBox box)
         {
-            int x = Convert.ToInt32(GetValueFromBox(box));
-            if (x == 0) box.Text = "0";
-            else box.Text = Convert.ToString(--x);
+            var x = Convert.ToInt32(ConvertValue(box));
+            box.Text = x == 0 ? "0" : Convert.ToString(--x);
         }
 
         private void ToUpHours(object sender, RoutedEventArgs e)
@@ -136,5 +164,7 @@ namespace STFD
         {
             ToDown(boxSeconds);
         }
+
+        
     }
 }
