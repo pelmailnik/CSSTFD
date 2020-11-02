@@ -41,13 +41,9 @@ namespace STFD
 
         private void btnPlan_Click(object sender, RoutedEventArgs e)
         {
-            
             _task.SetTime(boxHours.Text, boxMinutes.Text, boxSeconds.Text);
             _task.ToPlan(cmbBox.SelectedIndex);
             Indicate();
-
-            boxDebug.Text = Convert.ToString(_task.IsTaskExist());
-
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -62,7 +58,6 @@ namespace STFD
         {
             _task.DeleteTask();
             Indicate();
-            boxDebug.Text = Convert.ToString(_task.IsTaskExist());
         }
 
         private void Indicate()
@@ -164,7 +159,5 @@ namespace STFD
         {
             ToDown(boxSeconds);
         }
-
-        
     }
 }

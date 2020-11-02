@@ -114,5 +114,11 @@
     <Resource Include="resourses\indicatorShut.png" />
     <Resource Include="resourses\indicatorSleep.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resourses\minimize.png" />
+    <Resource Include="resourses\mouseMinimize.png" />
+    <Resource Include="resourses\mouseOff.png" />
+    <Resource Include="resourses\off.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

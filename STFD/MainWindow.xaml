@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STFD"
         mc:Ignorable="d"
-        Title="STFD" Height="125" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" Icon="resourses/iconApp.png" WindowStyle="None">
-    <Grid x:Name="mainGrid" Background="#00000000" MouseDown="Grid_MouseDown">
+        Title="STFD" Height="114.333" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" Icon="resourses/iconApp.png" WindowStyle="None">
+    <Grid x:Name="mainGrid" Background="#00000000" MouseDown="Grid_MouseDown" Margin="0,0,0,10">
         <TextBox x:Name="boxHours" HorizontalAlignment="Left" Height="19" Margin="46,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
         <TextBox x:Name="boxMinutes" HorizontalAlignment="Left" Height="19" Margin="137,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Cursor="AppStarting"/>
         <TextBox x:Name="boxSeconds" HorizontalAlignment="Left" Height="19" Margin="226,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
-        <TextBlock x:Name="boxDebug" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="13,96,0,0" Foreground="Black"/>
-        <Button x:Name="btnAbort" Content="Отменить" HorizontalAlignment="Left" Margin="212,75,0,0" VerticalAlignment="Top" Width="63" Click="btnAbort_Click" Height="22" BorderBrush="#FFACACAC" Background="#FFEDEDED"/>
+        <Button x:Name="btnAbort" Content="Отменить" Margin="212,75,25,0" VerticalAlignment="Top" Click="btnAbort_Click" Height="22" BorderBrush="#FFACACAC" Background="#FFEDEDED"/>
         <Button x:Name="btnPlan" Content="Запланировать" HorizontalAlignment="Left" Margin="107,75,0,0" VerticalAlignment="Top" Width="98" Click="btnPlan_Click" Height="22" IsDefault="True" BorderBrush="#FFACACAC" Background="#FFEDEDED"/>
         <Label Content="Мин" HorizontalAlignment="Left" Margin="107,40,0,0" VerticalAlignment="Top" Height="19" Width="30" Padding="0,1,0,0"/>
         <Label Content="Час" HorizontalAlignment="Left" Margin="18,40,0,0" VerticalAlignment="Top" Height="19" Width="28" Padding="4,1,0,0"/>
@@ -73,28 +72,39 @@
                 <ImageBrush ImageSource="resourses/arrow.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btn_Minimized" Content="" HorizontalAlignment="Left" Margin="226,0,0,0" VerticalAlignment="Top" Width="36" Height="24" Click="btn_Minimized_Click"/>
-        <ComboBox x:Name="cmbBox" HorizontalAlignment="Left" Margin="18,75,0,0" VerticalAlignment="Top" Width="60" SelectedIndex="0">
+        <ComboBox x:Name="cmbBox" HorizontalAlignment="Left" Margin="25,75,0,0" VerticalAlignment="Top" Width="60" SelectedIndex="0">
             <ComboBoxItem Content="Выкл."/>
             <ComboBoxItem Content="Сон"/>
         </ComboBox>
         <Label x:Name="lblTitleStatus" Content="" HorizontalAlignment="Left" Margin="34,0,0,0" VerticalAlignment="Top"/>
         <Image x:Name="indctrImage" HorizontalAlignment="Left" Height="24" Margin="7,2,0,0" VerticalAlignment="Top" Width="24"/>
-        <Button x:Name="btnClose" Content="" HorizontalAlignment="Left" Margin="264,0,0,0" VerticalAlignment="Top" Width="36" Height="24" Click="btnClose_Click">
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
+        <Image Name="offButton" HorizontalAlignment="Left" Height="24" Margin="264,0,0,0" VerticalAlignment="Top" 
+               Width="36" MouseDown="btnClose_Click">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Source" Value="resourses/off.png"/>
                     <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
-                            <Setter Property="RenderTransform">
-                                <Setter.Value>
-                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=offButton}"
+                                     Value="True">
+                            <Setter Property="Source" Value="resourses/mouseOff.png"/>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Button.Style>
-        </Button>
+            </Image.Style>
+        </Image>
+        <Image Name="minButton" HorizontalAlignment="Left" Height="24" Margin="226,0,0,0" VerticalAlignment="Top" 
+               Width="36" MouseDown="btn_Minimized_Click">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Source" Value="resourses/minimize.png"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=minButton}"
+                                     Value="True">
+                            <Setter Property="Source" Value="resourses/mouseMinimize.png"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
     </Grid>
 </Window>

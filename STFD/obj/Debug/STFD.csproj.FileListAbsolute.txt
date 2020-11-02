@@ -47,4 +47,3 @@ D:\Users\pelmailnik\Documents\GitHub\CSSTFD\CSSTFD\STFD\obj\Debug\STFD.csproj.Co
 D:\Users\pelmailnik\Documents\GitHub\CSSTFD\CSSTFD\STFD\obj\Debug\STFD.csproj.CopyComplete
 D:\Users\pelmailnik\Documents\GitHub\CSSTFD\CSSTFD\STFD\obj\Debug\STFD.exe
 D:\Users\pelmailnik\Documents\GitHub\CSSTFD\CSSTFD\STFD\obj\Debug\STFD.pdb
-D:\Users\pelmailnik\Documents\GitHub\CSSTFD\CSSTFD\STFD\obj\Debug\STFD.csprojAssemblyReference.cache
